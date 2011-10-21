@@ -1,0 +1,30 @@
+</div>
+
+    <div id="sidebar">
+      <ul class="statelist">
+        <li><a href="#" title="unread">Unread</a><span id="unread-count"/></li>
+        <li><a href="#" title="important">Important</a><span id="important-count"</span></li>
+        <li><a href="#" title="done">Done</a><span id="done-count"/></li>
+      </ul>
+
+      <h2>Recent Activity</h2>
+      <ul id="history">
+      </ul>
+    </div>
+
+<script src="../../js/prefix-loader.js"></script>
+<script type="text/javascript" charset="utf-8">
+  couchapp_prefix_load("../../");
+</script>
+<script src="../../js/readme.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+$.couch.app(function(app) {
+  rm_init_update_links(app);
+  rm_init_list_links(app);
+  rm_refreshTimestamps();
+  rm_refreshHistory(app);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<li id='item-{{_id}}'>
+  <a name="a-{{_id}}"></a>
+  <div class="header">
+    <img src="{{rm_favicon}}" alt="favicon" />
+    [<a href="#" class="statechange" id="done-{{_id}}"
+        title="done">
+      <img src="../../img/done.png" alt="done" title="done" /></a>
+    <a href="#" class="statechange" id="important-{{_id}}"
+       title="important">
+      <img src="../../img/important.png" alt="important"
+           title="important" /></a>]
+    <span class="name">{{author}}</span>
+    - <a href="{{link}}" class="title">{{title}}</a>
+    <span class="timestamp" title="{{updated}}">{{updated}}</span>
+    <a href="#" class="more" id="more-{{_id}}">&raquo;</a>
+  </div>
+  <div class="message" id="message-{{_id}}">{{{summary}}}</div>
+  <div style="clear:left;"></div>
+</li>

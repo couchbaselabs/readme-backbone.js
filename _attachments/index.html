@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>README</title>
+    <link rel="stylesheet" href="style/main.css" type="text/css">
+  </head>
+  <body>
+    <h1>items in <em class="state">?</em> state</h1>
+
+    <ul id="items"></ul>
+
+    <div id="sidebar">
+      <ul id="nav">
+        <li><a href="#unread">Unread</a></li>
+        <li><a href="#important">Important</a></li>
+        <li><a href="#done">Done</a></li>
+      </ul>
+    </div>
+  </body>
+
+  <script src="/_utils/script/sha1.js"></script>
+  <script src="/_utils/script/json2.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="/_utils/script/jquery.couch.js"></script>
+  <!--<script src="vendor/couchapp/jquery.couch.app.js"></script>
+  <script src="vendor/couchapp/jquery.couch.app.util.js"></script>-->
+  <script src="vendor/couchapp/jquery.mustache.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/backbone.couchdb.js"></script>
+  <script src="js/app.js"></script>
+
+  <script id="item-template" type="text/template+mustache">
+  <a name="a-{{_id}}"></a>
+  <div class="header">
+    <img src="{{rm_favicon}}" alt="favicon" />
+    [<a href="#" class="statechange" id="done-{{_id}}"
+        title="done">
+      <img src="img/done.png" alt="done" title="done" /></a>
+    <a href="#" class="statechange" id="important-{{_id}}"
+       title="important">
+      <img src="img/important.png" alt="important"
+           title="important" /></a>]
+    <span class="name">{{author}}</span>
+    - <a href="{{link}}" class="title">{{title}}</a>
+    <span class="timestamp" title="{{updated}}">{{updated}}</span>
+    <a href="#" class="more" id="more-{{_id}}">&raquo;</a>
+  </div>
+  <div class="message" id="message-{{_id}}">{{{summary}}}</div>
+  <div style="clear:left;"></div>
+  </script>
+
+  <script type="text/javascript" charset="utf-8">
+    jQuery(function() {
+    });
+  </script>
+</html>
