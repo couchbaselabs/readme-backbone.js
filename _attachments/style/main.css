@@ -45,6 +45,8 @@ h1 {
   margin:4px 0;
 }
 
+#items li .message{display:none}
+
 form {
   padding:4px;
   margin:6px;

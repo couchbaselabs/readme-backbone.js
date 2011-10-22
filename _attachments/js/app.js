@@ -31,7 +31,8 @@
       className: 'item',
       template: $('#item-template').html(),
       render: function() {
-        $(this.el).html($.mustache(this.template, this.model.toJSON()));
+        $(this.el).html($.mustache(this.template, this.model.toJSON()))
+          .attr('id', this.model.id);
         return this;
       },
       initialize: function() {
@@ -82,5 +83,12 @@
     
     window.App = new Readme();
     Backbone.history.start();
+  });
+
+  $(function() {
+    $('.more').live('click', function(ev) {
+      ev.preventDefault();
+      $(ev.target).closest('li').find('.message').toggle('fast');
+    });
   });
 })(jQuery);

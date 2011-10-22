@@ -31,27 +31,18 @@
   <script src="js/app.js"></script>
 
   <script id="item-template" type="text/template+mustache">
-  <a name="a-{{_id}}"></a>
   <div class="header">
     <img src="{{rm_favicon}}" alt="favicon" />
-    [<a href="#" class="statechange" id="done-{{_id}}"
-        title="done">
+    [<a href="#" class="statechange" title="done">
       <img src="img/done.png" alt="done" title="done" /></a>
-    <a href="#" class="statechange" id="important-{{_id}}"
-       title="important">
-      <img src="img/important.png" alt="important"
-           title="important" /></a>]
+    <a href="#" class="statechange" title="important">
+      <img src="img/important.png" alt="important" title="important" /></a>]
     <span class="name">{{author}}</span>
     - <a href="{{link}}" class="title">{{title}}</a>
     <span class="timestamp" title="{{updated}}">{{updated}}</span>
-    <a href="#" class="more" id="more-{{_id}}">&raquo;</a>
+    <a href="#" class="more">&raquo;</a>
   </div>
-  <div class="message" id="message-{{_id}}">{{{summary}}}</div>
+  <div class="message">{{{summary}}}</div>
   <div style="clear:left;"></div>
-  </script>
-
-  <script type="text/javascript" charset="utf-8">
-    jQuery(function() {
-    });
   </script>
 </html>
