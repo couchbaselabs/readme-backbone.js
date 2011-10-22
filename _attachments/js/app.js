@@ -87,9 +87,13 @@
   });
 
   $(function() {
-    $('.more').live('click', function(ev) {
-      ev.preventDefault();
-      $(ev.target).closest('li').find('.message').toggle('fast');
+    $('.more, .header').live('click', function(ev) {
+      if ($(ev.target).hasClass('more')) {
+        ev.stopPropagation();
+        ev.preventDefault();
+      } else if (!$(ev.target).is('a')) {
+        $(ev.target).closest('li').find('.message').toggle('fast');
+      }
     });
   });
 })(jQuery);
