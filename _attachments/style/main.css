@@ -45,6 +45,9 @@ h1 {
   margin:4px 0;
 }
 
+#items li img[title=done], #items li img[title=important]{opacity:0.25}
+#items li.done img[title=done]{opacity:1}
+#items li.important img[title=important]{opacity:1}
 #items li .message{display:none}
 
 form {

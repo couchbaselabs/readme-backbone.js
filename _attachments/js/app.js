@@ -32,7 +32,8 @@
       template: $('#item-template').html(),
       render: function() {
         $(this.el).html($.mustache(this.template, this.model.toJSON()))
-          .attr('id', this.model.id);
+          .attr('id', this.model.id)
+          .addClass(this.model.get('rm_state'));
         return this;
       },
       initialize: function() {
