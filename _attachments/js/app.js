@@ -6,10 +6,10 @@
 (function() {
   var db = Backbone.couch.db('support');
 
-  window.Todo = Backbone.couch.Model.extend({
+  var Todo = Backbone.couch.Model.extend({
   });
   
-  window.TodoList = Backbone.couch.Collection.extend({
+  var TodoList = Backbone.couch.Collection.extend({
     model: Todo,
     _db: db,
     state: 'done',
@@ -27,7 +27,7 @@
     }
   });
   
-  window.TodoStatesList = Backbone.couch.Collection.extend({
+  var TodoStatesList = Backbone.couch.Collection.extend({
     model: Backbone.couch.Model.extend({}),
     _db: db,
     couch: function() {
@@ -49,7 +49,7 @@
   window.states = new TodoStatesList();
 
   $(document).ready(function() {
-    window.TodoView = Backbone.View.extend({
+    var TodoView = Backbone.View.extend({
       tagName: "li",
       className: 'item',
       template: $('#item-template').html(),
@@ -64,7 +64,7 @@
       }
     });
     
-    window.TodoListView = Backbone.View.extend({
+    var TodoListView = Backbone.View.extend({
       render: function() {
         $('#items').empty();
         this.collection.each(function(todo) {
@@ -86,7 +86,7 @@
     });
 
     // needs el passed in at construction time
-    window.TodoStatesListView = Backbone.View.extend({
+    var TodoStatesListView = Backbone.View.extend({
       render: function() {
         var self = this;
         _.each(this.collection.models[0].attributes, function(v, k) {
@@ -100,7 +100,7 @@
       }
     });
 
-    window.Readme = Backbone.Router.extend({
+    var Readme = Backbone.Router.extend({
       routes: {
         '': 'listByStatus',
         ':status': 'listByStatus'
@@ -108,10 +108,10 @@
       
       initialize: function() {
         this.todoListView = new TodoListView({
-          collection: window.todos,
+          collection: new TodoList,
         });
         this.statesView = new TodoStatesListView({
-          collection: window.states,
+          collection: new TodoStatesList,
           el: '#nav'
         });
       },
