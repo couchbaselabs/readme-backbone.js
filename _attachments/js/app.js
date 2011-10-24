@@ -14,15 +14,16 @@
     _db: db,
     state: 'done',
     couch: function() {
+      var done = (this.state === 'done');
       return {
         view: 'readme/by_state',
-        startkey: [this.state],
-        endkey: [this.state, {}],
-        descending: false,
+        startkey: (done ? [this.state, {}] : [this.state]),
+        endkey: (done ? [this.state] : [this.state, {}]),
+        descending: (done ? true : false),
         include_docs: true,
         reduce: false,
         limit: 50
-      }
+      };
     }
   });
   
