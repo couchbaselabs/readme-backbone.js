@@ -138,5 +138,33 @@
           .find('.message').toggle('fast');
       }
     });
+
+    // TODO: Backbone Model + View this thing
+    $(".statechange").live('click', function(ev) {
+      var id = $(ev.target).closest('li').attr('id'),
+          state =  $(ev.target).attr('title');
+
+      ev.preventDefault();
+
+      // If the item's already in the state of the button clicked, then we
+      // assume it's going back to an 'unread' state.
+      if ($(ev.target).hasClass(state)) {
+        state = 'unread';
+      }
+
+      // POST to the set_state update handler to set the state.
+      $.ajax({type: 'POST',
+              url: db.uri + "_design/readme/_update/set_state/" + id,
+              data: 'new_state=' + state,
+              dataType: "json",
+              complete: function(res) {
+                  if (res.responseText === 'change') {
+                      $('#'+id).hide('fast');
+                  }
+                  states.fetch();
+              }});
+
+      return false;
+    });
   });
 })(jQuery);
