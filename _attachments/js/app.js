@@ -4,12 +4,14 @@
  * @license MIT
  */
 (function() {
+  var db = Backbone.couch.db('support');
+
   window.Todo = Backbone.couch.Model.extend({
   });
   
   window.TodoList = Backbone.couch.Collection.extend({
     model: Todo,
-    _db: Backbone.couch.db('support'),
+    _db: db,
     state: 'done',
     couch: function() {
       return {
@@ -18,12 +20,32 @@
         endkey: [this.state, {}],
         descending: false,
         include_docs: true,
+        reduce: false,
         limit: 50
       }
     }
   });
   
+  window.TodoStatesList = Backbone.couch.Collection.extend({
+    model: Backbone.couch.Model.extend({}),
+    _db: db,
+    couch: function() {
+      return {
+        view: 'readme/by_state',
+        group_level: 1
+      }
+    },
+    parse: function(resp) {
+      var rv = {};
+      _.each(resp, function(el, i) {
+        rv[el.key[0]] = el.value;
+      });
+      return rv;
+    }
+  });
+
   window.todos = new TodoList();
+  window.states = new TodoStatesList();
 
   $(document).ready(function() {
     window.TodoView = Backbone.View.extend({
@@ -62,6 +84,21 @@
       }
     });
 
+    // needs el passed in at construction time
+    window.TodoStatesListView = Backbone.View.extend({
+      render: function() {
+        var self = this;
+        _.each(this.collection.models[0].attributes, function(v, k) {
+          $(self.el).find('li:has(a[href=#'+k+']) .count').html(v);
+        });
+        return this;
+      },
+      initialize: function() {
+        _.bindAll(this, 'render');
+        this.collection.bind('reset', this.render);
+      }
+    });
+
     window.Readme = Backbone.Router.extend({
       routes: {
         '': 'listByStatus',
@@ -72,9 +109,14 @@
         this.todoListView = new TodoListView({
           collection: window.todos,
         });
+        this.statesView = new TodoStatesListView({
+          collection: window.states,
+          el: '#nav'
+        });
       },
       
       listByStatus: function(status) {
+        this.statesView.collection.fetch();
         if (status) {
           this.todoListView.collection.state = status;
         }
@@ -92,7 +134,8 @@
         ev.stopPropagation();
         ev.preventDefault();
       } else if (!$(ev.target).is('a')) {
-        $(ev.target).closest('li').find('.message').toggle('fast');
+        $(ev.target).closest('li').toggleClass('open')
+          .find('.message').toggle('fast');
       }
     });
   });

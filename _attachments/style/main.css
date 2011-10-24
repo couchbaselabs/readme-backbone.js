@@ -49,6 +49,7 @@ h1 {
 #items li.done img[title=done]{opacity:1}
 #items li.important img[title=important]{opacity:1}
 #items li .message{display:none}
+#items li.open{border-color:#36F}
 
 form {
   padding:4px;
