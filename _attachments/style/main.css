@@ -48,7 +48,7 @@ h1 {
 #items li img[title=done], #items li img[title=important]{opacity:0.25}
 #items li.done img[title=done]{opacity:1}
 #items li.important img[title=important]{opacity:1}
-#items li .message{display:none}
+#items li .message{display:none;overflow:auto}
 #items li.open{border-color:#36F}
 
 form {
