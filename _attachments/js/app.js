@@ -96,16 +96,20 @@
     var TodoListView = Backbone.View.extend({
       render: function() {
         $('#items').empty();
-        this.collection.each(function(todo) {
-          var view = new TodoView({
-            model: todo
-          })
-          $('#items').append(view.render().el);
-        });
-        $('.state').html(this.collection.state);
-        $('#nav li:has(a[href=#' + this.collection.state + '])')
-          .addClass('current')
-          .siblings().removeClass('current');
+        if (this.collection.length > 0) {
+          this.collection.each(function(todo) {
+            var view = new TodoView({
+              model: todo
+            })
+            $('#items').append(view.render().el);
+          });
+          $('.state').html(this.collection.state);
+          $('#nav li:has(a[href=#' + this.collection.state + '])')
+            .addClass('current')
+            .siblings().removeClass('current');
+        } else {
+          $('#items').html('<li>There are currently no items with this status.');
+        }
         return this;
       },
       initialize: function() {
@@ -118,9 +122,13 @@
     var TodoStatesListView = Backbone.View.extend({
       render: function() {
         var self = this;
-        _.each(this.collection.models[0].attributes, function(v, k) {
-          $(self.el).find('li:has(a[href=#'+k+']) .count').html(v);
-        });
+        if (_.keys(this.collection.models[0].attributes).length > 0) {
+          _.each(this.collection.models[0].attributes, function(v, k) {
+            $(self.el).find('li:has(a[href=#'+k+']) .count').html(v);
+          });
+        } else {
+          $(self.el).find('.count').html(0);
+        }
         return this;
       },
       initialize: function() {
