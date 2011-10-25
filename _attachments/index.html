@@ -15,6 +15,8 @@
         <li><a href="#unread">Unread</a> (<span class="count"></span>)</li>
         <li><a href="#done">Done</a> (<span class="count"></span>)</li>
       </ul>
+
+      <ul id="history"></ul>
     </div>
   </body>
 
@@ -28,6 +30,7 @@
   <script src="js/underscore.js"></script>
   <script src="js/backbone.js"></script>
   <script src="js/backbone.couchdb.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/app.js"></script>
 
   <script id="item-template" type="text/template+mustache">
@@ -44,5 +47,11 @@
   </div>
   <div class="message">{{{summary}}}</div>
   <div style="clear:left;"></div>
+  </script>
+
+  <script id="history-item-template" type="text/template+mustache">
+  <span class="timestamp" title="{{when}}">{{when}}</span>:
+      {{who}} <a href="{{link}}" title="{{title}}"><img src="{{favicon}}" alt="favicon" />
+      {{from}} &rarr; {{to}}</a>
   </script>
 </html>

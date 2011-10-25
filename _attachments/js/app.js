@@ -45,6 +45,35 @@
     }
   });
 
+  var TodoHistoryList = Backbone.couch.Collection.extend({
+    model: Backbone.couch.Model.extend({}),
+    _db: db,
+    couch: function() {
+      return {
+        view: 'readme/history',
+        descending: true,
+        include_docs: true,
+        limit: 20
+      };
+    },
+    parse: function(resp) {
+      var rv = [];
+      _.each(resp, function(r) {
+        rv.unshift({when: myPretty(r.key[0]),
+                    what: r._id,
+                    who: r.key[1],
+                    from: r.key[2],
+                    to: r.value,
+                    favicon: r.rm_favicon,
+                    title: r.title,
+                    // TODO: add individual item loading plus it's history
+                    link: '#' + r.value
+                   });
+      });
+      return rv;
+    }
+  });
+
   $(document).ready(function() {
     var TodoView = Backbone.View.extend({
       tagName: "li",
@@ -53,7 +82,10 @@
       render: function() {
         $(this.el).html($.mustache(this.template, this.model.toJSON()))
           .attr('id', this.model.id)
-          .addClass(this.model.get('rm_state'));
+          .addClass(this.model.get('rm_state'))
+          .find('.timestamp').text(function(i, t) {
+            return myPretty(t);
+          });
         return this;
       },
       initialize: function() {
@@ -97,6 +129,36 @@
       }
     });
 
+    var HistoryView = Backbone.View.extend({
+      tagName: 'li',
+      template: $('#history-item-template').html(),
+      render: function() {
+        $(this.el).html($.mustache(this.template, this.model.toJSON()));
+        return this;
+      },
+      initialize: function() {
+        _.bindAll(this, 'render');
+      }
+    });
+
+    // needs el passed in at construction time
+    var TodoHistoryListView = Backbone.View.extend({
+      render: function() {
+        var $el = $(this.el).empty();
+        this.collection.each(function(model) {
+          var view = new HistoryView({
+            model: model
+          });
+          $el.append(view.render().el);
+        });
+        return this;
+      },
+      initialize: function() {
+        _.bindAll(this, 'render');
+        this.collection.bind('reset', this.render);
+      }
+    });
+
     var Readme = Backbone.Router.extend({
       routes: {
         '': 'listByStatus',
@@ -111,6 +173,10 @@
           collection: new TodoStatesList,
           el: '#nav'
         });
+        this.todoHistoryListView = new TodoHistoryListView({
+          collection: new TodoHistoryList,
+          el: '#history'
+        });
       },
       
       listByStatus: function(status) {
@@ -119,6 +185,7 @@
           this.todoListView.collection.state = status;
         }
         this.todoListView.collection.fetch();
+        this.todoHistoryListView.collection.fetch();
       }
     });
     
