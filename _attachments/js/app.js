@@ -45,9 +45,6 @@
     }
   });
 
-  window.todos = new TodoList();
-  window.states = new TodoStatesList();
-
   $(document).ready(function() {
     var TodoView = Backbone.View.extend({
       tagName: "li",
