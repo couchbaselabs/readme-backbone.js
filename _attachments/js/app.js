@@ -203,10 +203,9 @@
 
   $(function() {
     $('.more, .header').live('click', function(ev) {
-      if ($(ev.target).hasClass('more')) {
+      if ($(ev.target).hasClass('more') || !$(ev.target).is('a')) {
         ev.stopPropagation();
         ev.preventDefault();
-      } else if (!$(ev.target).is('a')) {
         $(ev.target).closest('li').toggleClass('open')
           .find('.message').toggle('fast');
       }
