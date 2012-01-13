@@ -13,7 +13,7 @@
   var TodoList = Backbone.couch.Collection.extend({
     model: Todo,
     _db: db,
-    state: 'done',
+    state: 'unread',
     couch: function() {
       var done = (this.state === 'done');
       return {
