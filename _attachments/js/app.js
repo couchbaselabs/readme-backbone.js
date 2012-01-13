@@ -68,7 +68,7 @@
     parse: function(resp) {
       var rv = [];
       _.each(resp, function(r) {
-        rv.unshift({when: myPretty(r.key[0]),
+        rv.unshift({when: $.timeago(r.key[0]),
                     what: r._id,
                     who: r.key[1],
                     from: r.key[2],
@@ -93,7 +93,7 @@
           .attr('id', this.model.id)
           .addClass(this.model.get('rm_state'))
           .find('.timestamp').text(function(i, t) {
-            return myPretty(t);
+            return $.timeago(t);
           });
         return this;
       },
