@@ -157,7 +157,7 @@
           var view = new HistoryView({
             model: model
           });
-          $el.append(view.render().el);
+          $el.prepend(view.render().el);
         });
         return this;
       },
