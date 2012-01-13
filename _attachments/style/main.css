@@ -2,13 +2,35 @@
 
 body {
   font:1em Helvetica, sans-serif;
-  padding:4px;
+  background: url('../img/header_bg.png') repeat-x;
+  padding:0;
+  margin:0;
 }
 
 h1 {
   margin-top:0;
 }
 
+#logo {
+  overflow:hidden;
+  margin:25px;
+}
+#logo h1 {
+  background: url('../img/couchbase_logo.png') no-repeat;
+  width:185px;
+  height:29px;
+  text-indent:-9000px;
+  float:left;
+}
+#logo h2 {
+  margin:10px;
+  float:left;
+  color:#777;
+}
+#page_state {
+  margin: 12px 35px;
+  color:#333;
+}
 #account {
   float:right;
 }
@@ -22,15 +44,14 @@ h1 {
 
 #items {
   list-style:none;
-  border:4px solid #dde;
-  background:#eef;
   padding:8px;
   width:60%;
   float:left;
 }
 
 #sidebar {
-  border:4px solid #dfd;
+  background: #F7F4EF;
+  border-left:1px solid #F1F0EE;
   padding:8px;
   float:right;
   width:30%;
@@ -39,8 +60,7 @@ h1 {
 #nav .current{font-weight:bold}
 
 #items li {
-  border:4px solid #f5f5ff;
-  background:#fff;
+  border-bottom:2px dashed #eee;
   padding:8px;
   margin:4px 0;
 }
