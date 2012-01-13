@@ -6,7 +6,8 @@
 (function() {
   var db = Backbone.couch.db('support');
 
-  var Todo = Backbone.couch.Model.extend({
+  var Todo = window.Todo = Backbone.couch.Model.extend({
+    _db: db
   });
   
   var TodoList = Backbone.couch.Collection.extend({
@@ -24,6 +25,14 @@
         reduce: false,
         limit: 50
       };
+    },
+    parse: function(resp) {
+      _.each(resp, function(el, i) {
+        if (el.rm_history) {
+          el.latest_update = el.rm_history[el.rm_history.length-1].when;
+        }
+      });
+      return resp;
     }
   });
   
