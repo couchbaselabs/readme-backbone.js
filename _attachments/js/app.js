@@ -30,6 +30,8 @@
       _.each(resp, function(el, i) {
         if (el.rm_history) {
           el.latest_update = el.rm_history[el.rm_history.length-1].when;
+        } else if (el.rm_updated) {
+          el.latest_update = el.rm_updated;
         }
       });
       return resp;
